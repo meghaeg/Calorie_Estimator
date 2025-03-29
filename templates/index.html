@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Calorie Estimation</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .upload-box {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            background: #fafafa;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .upload-box:hover {
+            border-color: #007bff;
+            background: #f0f8ff;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            font-size: 16px;
+            color: #555;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Upload Food Image for Calorie Estimation</h2>
+        
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <label class="upload-box" for="file-input">
+                <span class="file-label">Click to Upload an Image</span>
+                <input type="file" name="file" id="file-input" accept="image/*" onchange="previewImage(event)">
+                <img id="preview" alt="Image Preview">
+            </label>
+            
+            <button type="submit">Predict Calories</button>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var preview = document.getElementById('preview');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(){
+                preview.src = reader.result;
+                preview.style.display = "block";
+            };
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+</html>
